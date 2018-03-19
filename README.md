@@ -1,6 +1,6 @@
-# y
+# vue-demo
 
-> y
+> vue-demo
 
 ## Build Setup
 
