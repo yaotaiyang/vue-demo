@@ -1,0 +1,21 @@
+{
+  "status":1,
+  "siteName":"云档案后台管理系统Demo",
+  "organization":"中国建设银行",
+  "userData":{
+    "name":"张三"
+  },
+  "menuData":[
+    {"path":"/demo1","name":"demo首页"},
+    {"path":"/demo1/grid","name":"demo表格管理"},
+    {"path":"/demo1/form","name":"demo表单管理"},
+    {"path":"/demo2","name":"首页"},
+    {"path":"/demo2/storagemanage","name":"库房管理",
+      "children":[
+        {"path":"/demo2/storagemanage-info1","name":"库房信息管理"},
+        {"path":"/demo2/storagemanage-info2","name":"子菜单2"},
+        {"path":"/demo2/storagemanage-info3","name":"子菜单3"}
+      ]
+    }
+  ]
+}

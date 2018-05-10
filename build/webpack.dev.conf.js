@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -12,6 +13,7 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+var mockDatas = require('../mock/index.js')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -25,8 +27,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-      ],
+        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }
+      ]
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
@@ -41,7 +43,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
-      poll: config.dev.poll,
+      poll: config.dev.poll
+    },
+    before: function (app) {
+      for (var key in mockDatas) {
+        (function (app, key, mockDatas) {
+          app.use('/api/' + key, function (req, res) {
+            res.set({ 'authorization': 'administartor' })
+            fs.readFile(path.join(__dirname, '../', mockDatas[key]), 'utf8', function (err, data) {
+              try {
+                res.json(JSON.parse(data))
+              } catch (e) {
+                res.status(500)
+                res.json({ status: 0, message: 'mock json ���ݷ��س���' })
+              }
+            })
+          })
+        })(app, key, mockDatas)
+      }
     }
   },
   plugins: [
@@ -82,11 +101,11 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`]
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)

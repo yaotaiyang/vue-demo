@@ -1,0 +1,22 @@
+body{padding:0;margin:0;font-size: 14px;}
+ul,li{margin: 0;padding: 0;list-style: none}
+.el-header{padding:0!important;height: auto!important;}
+.el-aside{border-right:1px solid #ddd;}
+.el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{width: 240px!important;}
+.el-form-item--mini.el-form-item{margin-bottom:10px!important;}
+.el-table th{padding:4px 0!important;}
+.el-table td{padding:0!important;}
+.pull-left{float: left;}
+.pull-right{float:right;}
+.inline-block{display: inline-block;}
+.block{display:block;}
+.display-table{display: table;}
+.display-cell{display: table-cell;vertical-align: top;text-align: left;}
+.align-right{text-align: right}
+.align-left{text-align: left;}
+.align-center{text-align: center}
+.align-middle{vertical-align: middle}
+.align-top{vertical-align: top}
+.align-bottom{vertical-align: bottom}
+.clearfix{}
+.clearfix:after{content:"";display: block;height: 0;line-height: 0;overflow: hidden;clear: both;}
